@@ -44,6 +44,10 @@ def InsertionSort(listToSort):
 BubbleSort
 """
 def BubbleSort(listToSort):
+    for i in range(1,len(listToSort)):
+        for j in range(0,len(listToSort)-i):
+            if listToSort[j]>listToSort[j+1]:
+                listToSort[j],listToSort[j+1]=listToSort[j+1],listToSort[j]
     return listToSort
 
 """
