@@ -28,15 +28,14 @@ def SelectionSort(listToSort):
 InsertionSort
 """
 def InsertionSort(listToSort):
+
     for i in range(len(listToSort)):
         num = listToSort[i]
         j = i-1
         while j >=0 and listToSort[j]>listToSort[j+1]:
             listToSort[j+1],listToSort[j] = listToSort[j],listToSort[j+1]
             j = j-1
-        pass
         listToSort[j+1] = num
-    pass
 
     return listToSort
 
@@ -44,10 +43,14 @@ def InsertionSort(listToSort):
 BubbleSort
 """
 def BubbleSort(listToSort):
+    flag = True
     for i in range(1,len(listToSort)):
-        for j in range(0,len(listToSort)-i):
-            if listToSort[j]>listToSort[j+1]:
-                listToSort[j],listToSort[j+1]=listToSort[j+1],listToSort[j]
+        if flag:
+            flag = False;
+            for j in range(0,len(listToSort)-i):
+                if listToSort[j]>listToSort[j+1]:
+                    flag = True
+                    listToSort[j],listToSort[j+1]=listToSort[j+1],listToSort[j]
     return listToSort
 
 """
@@ -101,12 +104,13 @@ def QuickSort(listToSort, i=0, j=None):
     return listToSort
 
 def partition(list,begin,end):
-    pivot = begin
+    pivot = (begin+end)//2
     list[pivot],list[end-1] = list[end-1],list[pivot]
     l = begin
     for i in range(begin,end-1):
         if list[i] < list[end-1]:
-            list[l],list[i] = list[i],list[l]
+            if l!=i:
+                list[l],list[i] = list[i],list[l]
             l = l+1
     list[l],list[end-1] = list[end-1],list[l]
     return l
