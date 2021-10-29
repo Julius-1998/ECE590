@@ -50,14 +50,26 @@ class Queue:
     """
     def isFull(self):
         ##### IMPLEMENT! #####
-        return
+        if self.numElems == len(self.queue):
+            return True
+        else:
+            return False
+
+
+
 
     """
     isEmpty function to check if the queue is empty.
     """
     def isEmpty(self):
         ##### IMPLEMENT! #####
-        return
+        if self.numElems == 0:
+            return True
+        else:
+            return False
+
+
+
 
     """
     resize function to resize the queue by doubling its size.
@@ -65,6 +77,11 @@ class Queue:
     """
     def resize(self):
         ##### IMPLEMENT! #####
+        if (self.rear<=self.front):
+            self.queue = self.queue[self.front:] + self.queue[:self.rear]
+        self.front = 0
+        self.rear = self.numElems
+        self.queue = self.queue + [None for x in self.queue]
         return
 
     """
@@ -72,6 +89,14 @@ class Queue:
     """
     def push(self, val):
         ##### IMPLEMENT! #####
+        if self.isFull():
+            self.resize()
+        self[self.rear]=val
+        self.rear=self.rear+1
+        self.numElems=self.numElems+1
+        if self.rear==len(self.queue):
+            self.rear=0
+
         return
 
     """
@@ -79,4 +104,14 @@ class Queue:
     """
     def pop(self):
         ##### IMPLEMENT! #####
-        return None
+        if self.numElems == 0:
+            raise Exception("Can not pop with empty queue!\n")
+        result=self[self.front]
+        self.front = self.front+1 ==len(self.queue)
+        self.numElems =self.numElems-1
+        if self.front==len(self.queue):
+            self.front=0
+        return result
+
+
+
