@@ -24,6 +24,7 @@ alg:  A string that is either 'BFS' or 'DFS'.
 OUTPUTS
 path: The path from maze.start to maze.exit.
 """
+
 def bdfs(maze, alg):
     # If the alg is not BFS or DFS, raise exception.
     if (alg != 'BFS') and (alg != 'DFS'):
@@ -54,12 +55,42 @@ def bdfs(maze, alg):
                     stack.push(n)
                     n.prev = v
                     n.dist = dist + 1
+    if alg == 'BFS':
+        for v in maze.adjList:
+            v.prev = None
+            v.dist = math.inf
+            v.visited = False
 
-    return []
-    ##### Your implementation goes here. #####
+        queue = Queue()
+        queue.push(maze.start)
+        maze.start.dist = 0
+        maze.start.visited=True
 
+        while not queue.isEmpty():
+             curr = queue.pop()
+             if curr == maze.exit:
+                 break
+
+             for n in curr.neigh:
+                 if not n.visited:
+                    n.dist = curr.dist+1
+                    n.prev = curr
+                    n.visited = True
+                    queue.push(n)
+
+        v = maze.exit
+        path = []
+        while v != None:
+            path.append(v.rank)
+            v = v.prev
+        path.reverse()
+        print(path)
+        return path
 """
 Main function.
 """
+
+
+
 if __name__ == "__main__":
     testMazes(False)
