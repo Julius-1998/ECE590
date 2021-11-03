@@ -68,8 +68,19 @@ def bdfs(maze, alg):
 
         while not queue.isEmpty():
              curr = queue.pop()
+             dist = curr.dist
+
              if curr == maze.exit:
-                 break
+                maze.path = [None for x in range(0, curr.dist+1)]
+                maze.path[dist] = curr.rank
+                depth = curr.dist
+                for i in range(0,depth):
+                    prev = curr.prev
+                    curr = prev
+                    maze.path[depth - 1 - i] = curr.rank
+                maze.plot_maze_solution()
+                return maze.path
+
 
              for n in curr.neigh:
                  if not n.visited:
@@ -78,14 +89,6 @@ def bdfs(maze, alg):
                     n.visited = True
                     queue.push(n)
 
-        v = maze.exit
-        path = []
-        while v != None:
-            path.append(v.rank)
-            v = v.prev
-        path.reverse()
-        print(path)
-        return path
 """
 Main function.
 """
@@ -94,3 +97,4 @@ Main function.
 
 if __name__ == "__main__":
     testMazes(False)
+
