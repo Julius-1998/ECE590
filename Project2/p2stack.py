@@ -5,9 +5,9 @@ Fall 2021
 
 p2stack.py
 
-Partner 1:
-Partner 2:
-Date:
+Partner 1:AS1134 Airu Song
+Partner 2:SZ232 Sijie Zhou
+Date:2021.11.3
 """
 
 """
@@ -48,7 +48,6 @@ class Stack:
     """
     def isFull(self):
         ##### IMPLEMENT! #####
-
         return self.numElems == len(self.stack)
 
     """
@@ -71,6 +70,7 @@ class Stack:
     """
     def push(self, val):
         ##### IMPLEMENT! #####
+        #If the stack is full, resize it.
         if self.isFull():
             self.resize()
         self.numElems = self.numElems + 1

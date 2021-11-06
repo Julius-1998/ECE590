@@ -81,6 +81,7 @@ class Queue:
             self.queue = self.queue[self.front:] + self.queue[:self.rear]
         self.front = 0
         self.rear = self.numElems
+        #expand the queue by *2
         self.queue = self.queue + [None for x in self.queue]
         return
 
@@ -89,14 +90,14 @@ class Queue:
     """
     def push(self, val):
         ##### IMPLEMENT! #####
+        #check if the queue is full
         if self.isFull():
             self.resize()
-        self[self.rear]=val
+        self.queue[self.rear]=val
         self.rear=self.rear+1
         self.numElems=self.numElems+1
         if self.rear==len(self.queue):
             self.rear=0
-
         return
 
     """
@@ -104,11 +105,13 @@ class Queue:
     """
     def pop(self):
         ##### IMPLEMENT! #####
+        #check if the queue is empty
         if self.numElems == 0:
             raise Exception("Can not pop with empty queue!\n")
-        result=self[self.front]
-        self.front = self.front+1 ==len(self.queue)
+        result=self.queue[self.front]
+        self.front = self.front+1
         self.numElems =self.numElems-1
+        #redirect the front pointer
         if self.front==len(self.queue):
             self.front=0
         return result
